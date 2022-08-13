@@ -5,9 +5,7 @@ module.exports = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        'audio-play': "url('/src/assets/audio-play.svg')",
-      }
+  
     },
   },
   plugins: [],
