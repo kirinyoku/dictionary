@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useSearchWordQuery } from "../store/dictionaryApi/dictionary.api";
+import {v4 as uuidv4} from 'uuid';
 import { useDebounce } from '../hooks/debounce';
 
 export const HomePage = () => {
@@ -39,11 +40,11 @@ export const HomePage = () => {
               <div className='flex sm:flex-row flex-col sm:space-x-2 w-fit'>
                 <h2 className='text-3xl text-slate-700 font-bold inline-block'>{data[0].word}</h2>
                 <div className='flex flex-wrap'>
-                  { data[0].phonetics.map((ph, i) => {
+                  { data[0].phonetics.map(ph => {
                     if (ph.audio && ph.text) {
                       const audio = new Audio(ph.audio);
                       return (
-                        <div key={i} className='flex sm:space-x-2 space-y-1 sm:text-xl text-lg items-center sm:p-1 py-2'>
+                        <div key={uuidv4()} className='flex sm:space-x-2 space-y-1 sm:text-xl text-lg items-center sm:p-1 py-2'>
                           <p>{`[ ${ph.text} ]`}</p>
                           <button role='button' onClick={() => audio.play()} className='cursor-pointer'>🔊</button>
                         </div>
@@ -56,7 +57,7 @@ export const HomePage = () => {
                 <p className='font-bold text-2xl text-slate-700 sm:mt-2'>DEFINITIONS</p>
                 {data[0].meanings.map((m, i) => {
                   return (
-                    <div className='flex flex-col sm:text-2xl text-lg my-2 py-1 sm:w-fit w-11/12'>
+                    <div key={uuidv4()} className='flex flex-col sm:text-2xl text-lg my-1 py-1 sm:w-fit w-11/12'>
                       <p>{`${i+1}. Part of speech: [${m.partOfSpeech}]`}</p>
                       <p>{m.definitions[0].definition}</p>
                     </div>
